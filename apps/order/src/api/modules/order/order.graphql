@@ -1,0 +1,20 @@
+type Order {
+  id: String
+  products: [String]
+  userId: String
+  orderDate: Date
+}
+
+input CreateOrderInput {
+  userId: String
+}
+
+type Query {
+  orders: [Order]!
+  order(id: String): Order
+}
+
+type Mutation {
+  createOrder(createOrderInput: CreateOrderInput!): Order!
+  removeOrder(id: String!): Order
+}
