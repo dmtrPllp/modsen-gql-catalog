@@ -14,7 +14,7 @@ import { INVALID_TOKEN, TokenPayload } from '@app/common';
 import { UserOutput } from '../users/response/user.response';
 import CookieWithRefreshToken from './interfaces/cookie-with-refresh-token.interface';
 import { UsersService } from '../users/users.service';
-import { UserLoginInput } from './dto/user-login.dto';
+import { UserLoginInput } from './dto/user-login.input';
 import { LoginResponse } from './response/user-login.response';
 import { RefreshResponse } from './response/access-token.response';
 import {
@@ -23,8 +23,7 @@ import {
   JWT_REFRESH_TOKEN_EXPIRATION_TIME,
   JWT_REFRESH_TOKEN_SECRET,
 } from '../../constants/params';
-
-import { UserInput } from '../users/dto/user-input.dto';
+import { UserRegistrationInput } from './dto/user-registration.input';
 
 @Injectable()
 export class AuthService {
@@ -34,8 +33,10 @@ export class AuthService {
     private readonly configService: ConfigService,
   ) {}
 
-  public registration(createUserInput: UserInput): Promise<UserOutput> {
-    return this.usersService.create(createUserInput);
+  public registration(
+    registrationInput: UserRegistrationInput,
+  ): Promise<UserOutput> {
+    return this.usersService.create(registrationInput);
   }
 
   public async login(loginInput: UserLoginInput): Promise<LoginResponse> {

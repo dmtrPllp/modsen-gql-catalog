@@ -4,7 +4,7 @@ import { User } from '@app/db-lib';
 
 import { AuthService } from './auth.service';
 import { LoginResponse } from './response/user-login.response';
-import { UserLoginInput } from './dto/user-login.dto';
+import { UserLoginInput } from './dto/user-login.input';
 import { RefreshResponse } from './response/access-token.response';
 import {
   CREATE_USER_INPUT,
@@ -12,7 +12,7 @@ import {
   REFRESH_INPUT,
 } from '../../constants/params';
 import { UserOutput } from '../users/response/user.response';
-import { UserInput } from '../users/dto/user-input.dto';
+import { UserRegistrationInput } from './dto/user-registration.input';
 
 @Resolver(() => User)
 export class AuthResolver {
@@ -20,9 +20,9 @@ export class AuthResolver {
 
   @Mutation(() => UserOutput)
   public registration(
-    @Args(CREATE_USER_INPUT) createUserInput: UserInput,
+    @Args(CREATE_USER_INPUT) registrationInput: UserRegistrationInput,
   ): Promise<UserOutput> {
-    return this.authService.registration(createUserInput);
+    return this.authService.registration(registrationInput);
   }
 
   @Query(() => LoginResponse)

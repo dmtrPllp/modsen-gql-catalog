@@ -1,8 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { IDataServices, User } from '@app/db-lib';
-import { UserInput } from './dto/user-input.dto';
-import { UserOutput } from './response/user.response';
+
 import { v4 } from 'uuid';
+
+import { IDataServices, User } from '@app/db-lib';
+
+import { UserOutput } from './response/user.response';
+import { UserRegistrationInput } from '../auth/dto/user-registration.input';
 
 @Injectable()
 export class UsersRepository {
@@ -14,8 +17,10 @@ export class UsersRepository {
     return user;
   }
 
-  public async create(createUserInput: UserInput): Promise<UserOutput> {
-    return await this.db.users.create({ id: v4(), ...createUserInput });
+  public async create(
+    registrationInput: UserRegistrationInput,
+  ): Promise<UserOutput> {
+    return await this.db.users.create({ id: v4(), ...registrationInput });
   }
 
   public async updateRefreshToken(login: string, token: string): Promise<void> {

@@ -11,23 +11,26 @@ import { User } from '@app/db-lib';
 import { ALREADY_EXIST, NOT_FOUND } from '@app/common';
 
 import { UserOutput } from './response/user.response';
-import { UserInput } from './dto/user-input.dto';
+
 import { UsersRepository } from './users.repository';
+import { UserRegistrationInput } from '../auth/dto/user-registration.input';
 
 @Injectable()
 export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
-  public async create(createUserInput: UserInput): Promise<UserOutput> {
+  public async create(
+    registrationInput: UserRegistrationInput,
+  ): Promise<UserOutput> {
     const user = await this.usersRepository.getUserByParameter({
-      email: createUserInput.email,
+      email: registrationInput.email,
     });
 
     if (user) {
       throw new HttpException(ALREADY_EXIST('User'), HttpStatus.CONFLICT);
     }
 
-    const { password: payload, ...rest } = createUserInput;
+    const { password: payload, ...rest } = registrationInput;
 
     const hashedPassword = await bcrypt.hash(payload, 10);
 
@@ -42,7 +45,7 @@ export class UsersService {
 
   public async getFullUserByParameter(filter: object): Promise<User> {
     const user = await this.usersRepository.getUserByParameter(filter);
-
+    console.log(1);
     if (!user) {
       throw new NotFoundException(NOT_FOUND('User'));
     }

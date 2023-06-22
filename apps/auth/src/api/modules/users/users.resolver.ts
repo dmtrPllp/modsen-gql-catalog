@@ -22,7 +22,6 @@ export class UsersResolver {
   @UseGuards(JwtAuthGuard, RoleGuard)
   @Query(() => UserOutput)
   getCurrentUser(@Context('req') req: RequestWithUser): Promise<UserOutput> {
-    console.log(1);
     return this.usersService.getFullUserByParameter({ login: req.user.login });
   }
 }
