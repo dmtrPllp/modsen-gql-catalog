@@ -1,10 +1,14 @@
 export * from './interfaces/token-payload.interface';
 export * from './interfaces/request-with-user.interface';
+export * from './interfaces/rmq.service.interface';
 
 export * from './modules/logger/winston-logger.service';
 export * from './modules/logger/winston-logger.module';
 export * from './modules/logger/constants/common';
 export * from './modules/logger/constants/params';
+
+export * from './modules/rmq/rmq.module';
+export * from './modules/rmq/rmq.service';
 
 export * from './middlewares/logger.middleware';
 export * from './middlewares/exception-handler.middleware';

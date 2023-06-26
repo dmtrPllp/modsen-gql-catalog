@@ -1,6 +1,6 @@
-export * from './data-service/mongo/model/user.model';
+export { User } from './data-service/mongo/model/user.model';
 export * from './data-service/mongo/model/product.model';
-export * from './data-service/mongo/model/cart.model';
+export { Cart } from './data-service/mongo/model/cart.model';
 export * from './data-service/mongo/model/order.model';
 
 export * from './data-service/contracts/data-service.contract';

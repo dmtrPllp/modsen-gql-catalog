@@ -20,9 +20,11 @@ export class AllExceptionsFilter implements ExceptionFilter {
       const status = exception.getStatus();
 
       this.loggerService.error(
-        `${request.method} ${request.url} QUERY ${JSON.stringify(
-          request.query,
-        )} BODY ${JSON.stringify(request.body)}  ${exception}`,
+        `${request.method || '{METHOD}'} ${
+          request.url || '{URL}'
+        } QUERY ${JSON.stringify(request.query)} BODY ${JSON.stringify(
+          request.body,
+        )}  ${exception}`,
       );
 
       throw new ApolloError(exception.message, `${status}`);
