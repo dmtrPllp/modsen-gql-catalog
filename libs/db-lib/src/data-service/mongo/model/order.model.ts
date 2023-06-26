@@ -18,7 +18,7 @@ export class Order {
   userId: string;
 
   @Prop({ required: true })
-  orderDate: Date;
+  orderDate: string;
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);

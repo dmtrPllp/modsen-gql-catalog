@@ -20,9 +20,9 @@ import { join } from 'path';
       autoSchemaFile: {
         path: './',
       },
-      typePaths: ['./**/**/*.graphql'],
+      typePaths: ['./**/*.graphql'],
       definitions: {
-        path: join(process.cwd(), './apps/order/src/graphql.classes.ts'),
+        path: join(process.cwd(), '/apps/order/src/graphql.classes.ts'),
         outputAs: 'class',
       },
     }),

@@ -12,7 +12,7 @@ export class OrderService {
     return await this.orderRepository.create(createOrderInput);
   }
 
-  findAll() {
+  public async findAll() {
     return `This action returns all order`;
   }
 

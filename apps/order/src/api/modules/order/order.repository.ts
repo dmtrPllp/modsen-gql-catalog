@@ -1,6 +1,7 @@
-import { IDataServices } from '@app/db-lib';
+import { IDataServices, Product } from '@app/db-lib';
 import { Injectable } from '@nestjs/common';
 import { CreateOrderInput } from './dto/create-order.input';
+import { v4 } from 'uuid';
 
 @Injectable()
 export class OrderRepository {
@@ -12,11 +13,20 @@ export class OrderRepository {
       userId: createOrderInput.userId,
     });
 
-    const products = cart.products;
+    const products: Product[] = [];
+
+    cart.products.forEach(async (item) => {
+      products.push(await this.db.products.findOneByParameters({ _id: item }));
+    });
 
     //TODO Messagebroker
     await this.db.cart.update({ userId: cart.userId }, { products: [] });
 
-    return await this.db.orders.create({ ...createOrderInput, products, });
+    return await this.db.orders.create({
+      id: v4(),
+      ...createOrderInput,
+      products,
+      orderDate: new Date().toISOString(),
+    });
   }
 }
