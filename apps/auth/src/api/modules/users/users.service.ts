@@ -45,7 +45,7 @@ export class UsersService {
 
   public async getFullUserByParameter(filter: object): Promise<User> {
     const user = await this.usersRepository.getUserByParameter(filter);
-    console.log(1);
+
     if (!user) {
       throw new NotFoundException(NOT_FOUND('User'));
     }

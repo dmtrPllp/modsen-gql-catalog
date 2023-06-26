@@ -6,5 +6,5 @@ export class UpdateCartInput {
   userId: string;
 
   @Field()
-  product: string;
+  productId: string;
 }

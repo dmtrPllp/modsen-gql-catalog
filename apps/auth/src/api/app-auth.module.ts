@@ -6,6 +6,9 @@ import {
   ApolloFederationDriverConfig,
 } from '@nestjs/apollo';
 
+import { ApolloServerPluginCacheControl } from '@apollo/server/plugin/cacheControl';
+import responseCachePlugin from '@apollo/server-plugin-response-cache';
+
 import { LoggerMiddleware, WinstonLoggerModule } from '@app/common';
 
 import { UsersModule } from './modules/users/users.module';
@@ -19,6 +22,10 @@ import { AuthModule } from './modules/auth/auth.module';
       autoSchemaFile: {
         federation: 2,
       },
+      plugins: [
+        ApolloServerPluginCacheControl({ defaultMaxAge: 5 }),
+        responseCachePlugin({}),
+      ],
     }),
     ConfigModule.forRoot({
       envFilePath: ['.env'],

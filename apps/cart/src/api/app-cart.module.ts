@@ -6,9 +6,10 @@ import {
   ApolloFederationDriver,
 } from '@nestjs/apollo';
 
-import { RedisCache } from 'apollo-server-cache-redis';
+import responseCachePlugin from '@apollo/server-plugin-response-cache';
+import { ApolloServerPluginCacheControl } from '@apollo/server/plugin/cacheControl';
 
-import { LoggerMiddleware, WinstonLoggerModule } from '@app/common';
+import { LoggerMiddleware, RmqModule, WinstonLoggerModule } from '@app/common';
 
 import { AuthModule } from './modules/auth/auth.module';
 import { CartModule } from './modules/cart/cart.module';
@@ -21,10 +22,10 @@ import { CartModule } from './modules/cart/cart.module';
       autoSchemaFile: {
         federation: 2,
       },
-      cache: new RedisCache({
-        host: 'localhost',
-        port: 6379,
-      }),
+      plugins: [
+        ApolloServerPluginCacheControl({ defaultMaxAge: 5 }),
+        responseCachePlugin(),
+      ],
     }),
     WinstonLoggerModule,
     ConfigModule.forRoot({
@@ -33,6 +34,7 @@ import { CartModule } from './modules/cart/cart.module';
     }),
     AuthModule,
     CartModule,
+    RmqModule,
   ],
   controllers: [],
   providers: [],

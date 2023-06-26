@@ -1,20 +1,29 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Directive, Field, ObjectType } from '@nestjs/graphql';
+import { Directive, Field, ID, ObjectType } from '@nestjs/graphql';
 
 import { SchemaTypes } from 'mongoose';
+import { Product } from '@app/db-lib';
 
 export type CartDocument = Cart & Document;
+
+// @ObjectType()
+// @Directive('@key(fields: "id")')
+// export class Product {
+//   @Field(() => ID)
+//   id: string;
+// }
 
 @ObjectType()
 @Schema({ versionKey: false })
 export class Cart {
-  @Field(() => [String])
-  @Directive('@shareable')
+  @Field(() => ID)
+  @Prop({ unique: true, index: true })
+  id: string;
+
   @Prop({ type: [{ type: SchemaTypes.ObjectId, ref: 'Product' }] })
-  products: string[];
+  products: Product[];
 
   @Field()
-  @Directive('@shareable')
   @Prop({ required: true, unique: true })
   userId: string;
 }
