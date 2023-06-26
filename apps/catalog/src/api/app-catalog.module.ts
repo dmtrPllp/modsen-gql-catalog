@@ -6,7 +6,7 @@ import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 
-import { LoggerMiddleware, WinstonLoggerModule } from '@app/common';
+import { LoggerMiddleware, RmqModule, WinstonLoggerModule } from '@app/common';
 
 import { ProductsModule } from './modules/products/products.module';
 import { AuthModule } from './modules/auth/auth.module';
@@ -27,6 +27,7 @@ import { AuthModule } from './modules/auth/auth.module';
     ProductsModule,
     AuthModule,
     WinstonLoggerModule,
+    RmqModule,
   ],
   controllers: [],
   providers: [],

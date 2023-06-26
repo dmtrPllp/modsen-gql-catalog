@@ -45,6 +45,11 @@ export class ProductsService {
     return await this.productsRepository.update(id, updateProductInput);
   }
 
+  public async getAllByCart(cartProducts: Product[]) {
+    console.log(cartProducts);
+    return cartProducts;
+  }
+
   public async remove(id: string): Promise<NoDataResponse> {
     this.productsRepository.getOne(id);
 

@@ -64,4 +64,9 @@ export class ProductsResolver {
   public removeProduct(@Args(ID_INPUT) id: string): Promise<NoDataResponse> {
     return this.productsService.remove(id);
   }
+
+  // @ResolveField(() => [Product])
+  // public productsByCart(@Parent() cart: Cart): Promise<Product[]> {
+  //   return this.productsService.getAllByCart(cart.products);
+  // }
 }

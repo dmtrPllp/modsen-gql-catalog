@@ -2,6 +2,9 @@ import { ApolloGatewayDriver, ApolloGatewayDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 
+import responseCachePlugin from '@apollo/server-plugin-response-cache';
+import { ApolloServerPluginCacheControl } from '@apollo/server/plugin/cacheControl';
+
 import { IntrospectAndCompose, RemoteGraphQLDataSource } from '@apollo/gateway';
 
 import { handleAuth } from './context/auth.context';
@@ -12,6 +15,10 @@ import { handleAuth } from './context/auth.context';
       driver: ApolloGatewayDriver,
       server: {
         context: handleAuth,
+        plugins: [
+          ApolloServerPluginCacheControl({ defaultMaxAge: 5 }),
+          responseCachePlugin({}),
+        ],
       },
       gateway: {
         supergraphSdl: new IntrospectAndCompose({
